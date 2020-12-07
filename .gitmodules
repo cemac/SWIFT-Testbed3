@@ -1,0 +1,3 @@
+[submodule "Nowcasting/GFS_plotting"]
+	path = Nowcasting/GFS_plotting
+	url = https://github.com/cemac/GFS_plotting
