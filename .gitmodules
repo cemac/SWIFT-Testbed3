@@ -1,3 +1,6 @@
 [submodule "Nowcasting/GFS_plotting"]
 	path = Nowcasting/GFS_plotting
 	url = https://github.com/cemac/GFS_plotting
+[submodule "Nowcasting/SWIFT-gateway"]
+	path = Nowcasting/SWIFT-gateway
+	url = git@github.com:cemac/SWIFT-gateway.git
