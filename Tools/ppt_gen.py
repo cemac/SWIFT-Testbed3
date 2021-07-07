@@ -6,7 +6,7 @@ import pptx.util
 import glob
 import matplotlib.image as mpimg
 
-OUTPUT_TAG = "20210623_ensembles"
+OUTPUT_TAG = "SWIFT_ppt"
 
 # new
 prs = pptx.Presentation()
