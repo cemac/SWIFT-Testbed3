@@ -1,0 +1,7 @@
+name: swift_tb3
+channels:
+  - defaults
+dependencies:
+  - pip
+  - pip:
+    - python-pptx
