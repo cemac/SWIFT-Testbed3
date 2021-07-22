@@ -86,7 +86,7 @@ done
 
 # if to be run on jasmin
 if [ jas=='Y' ]; then
-    url="/gws/nopw/j04/swift/public/requests/SWIFT_TB3/14th_21st_may2021/"
+    url="/gws/nopw/j04/swift/public/requests/SWIFT_TB3/july_dryrun/"
 elif [[ jas=='N' ]]; then
     url=${URL}
 fi

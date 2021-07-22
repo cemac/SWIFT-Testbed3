@@ -23,6 +23,36 @@ WG=ensembles
 tag=""
 now=20210515
 hr=12
+print_usage() {
+  echo "
+ plog_grabber.sh
+ A CEMAC script to grab png files
+ Usage:
+  .\plot_grabber.sh --p
+ Options:
+  -d date
+  -t hour
+  -h HELP: prints this message!
+ **
+ Code my be modified such as altering version dates for alternative experiments
+ obtained via https://esgf-node.llnl.gov/search/cmip5/
+ **
+ version: 0.4 (beta un-released)
+ ------------------------------------------------
+  "
+}
+
+while getopts 'd:t:h' flag; do
+  case "${flag}" in
+    d) now="${OPTARG}" ;;
+    t) hr="${OPTARG}" ;;
+    h) print_usage
+      exit 1 ;;
+    *) print_usage
+      exit 1 ;;
+  esac
+done
+
 # For
 mkdir /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/$now
 # Available vars
@@ -158,3 +188,6 @@ mv SWIFT_ppt.pptx ${now}_${WG}_${country}_Global.pptx
 mv ${now}_${WG}_${country}_Global.pptx /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/$now/
 cd ..
 done
+echo removing images
+cd ..
+rm -rf images/*
