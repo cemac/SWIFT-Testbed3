@@ -31,14 +31,21 @@ title.text = OUTPUT_TAG
 
 pic_left  = int(prs.slide_width * 0.15)
 pic_top   = int(prs.slide_height * 0.01)
-pic_width = int(prs.slide_width * 0.7)
 
 for g in glob.glob("images/*"):
     print(g)
     slide = prs.slides.add_slide(prs.slide_layouts[1])
     shapes = slide.shapes
     img = mpimg.imread(g)
-    pic_height = int(pic_width * img.shape[0] / img.shape[1])
+    # check aspect ratio and set width and height
+    if img.shape[1] > img.shape[0]:  # w > h
+        pic_width = int(prs.slide_width * 0.7)
+        pic_height = int(pic_width * img.shape[0] / img.shape[1])
+    else:
+        pic_height = int(prs.slide_height * 0.98)
+        pic_width = int(pic_height * img.shape[1] / img.shape[0])
+    pic_left  = int((prs.slide_width - pic_width) * 0.5)
+    pic_top  = int((prs.slide_height - pic_height) * 0.5)
     #pic   = slide.shapes.add_picture(g, pic_left, pic_top)
     pic   = slide.shapes.add_picture(g, pic_left, pic_top, pic_width, pic_height)
 
