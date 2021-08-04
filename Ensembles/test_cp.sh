@@ -9,12 +9,8 @@
 #bash_version   :4.2.46(2)-release
 #============================================================================
 
-# activate python environment
-
-whichconda=$(which conda |  awk -F/ '{print $(NF-2)}')
 # Try to initialize environment
 eval "$($HOME/miniconda3/bin/conda shell.bash hook)"
-
 conda activate
 conda activate swift_tb3
 
@@ -25,7 +21,7 @@ now=20210515
 hr=00
 print_usage() {
   echo "
- plog_grabber.sh
+ cpppts.sh
  A CEMAC script to grab png files
  Usage:
   .\plot_grabber.sh --p
@@ -34,10 +30,10 @@ print_usage() {
   -t hour
   -h HELP: prints this message!
  **
- Code my be modified such as altering version dates for alternative experiments
- obtained via https://esgf-node.llnl.gov/search/cmip5/
+ runs a serises of predifend plot grabber commands and the reduces file sizes and genreates
+ ppts for each region
  **
- version: 0.4 (beta un-released)
+
  ------------------------------------------------
   "
 }
@@ -53,63 +49,54 @@ while getopts 'd:t:h' flag; do
   esac
 done
 
-# For
+# make folder
 mkdir /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/$now
-# Available vars
-#varlists=["Precip3hr_r" "PrecipRate_r" ]
-#stampvarlis=["precip_amount"]
-#modellist=["mo-g"  "km8p8_ra2t"]
-#regionlist=["TAfr" "CAfr2" "WAfrs" "wafr" "GuinC" "EAfr1B" "EAfr1Bs" "Sengl" "EAfr1Bs"]
-#citylist=["ABU" "ACC"  "DAK" "KAN" "KUM" "LAG" "LAK" "MOM" "NAI" "TAM" "TBA" "TOU"]
+# String arrays to loop through
+# all cutouts
 declare -a country_list=("afr" "cafr" "eafr" "gha" "kya" "nga" "sen" "wafr")
-#probvar=["24hr_precip_amount" ]
+# threshold
 declare -a pthresholds=("32mm"  "64mm"  "128mm")
+# regions
 declare -a cutout_list=("afr" "cafr" "eafr" "wafr")
 
+# For every area
 for country in ${country_list[@]};
  do
   if [[ " ${cutout_list[@]}" =~ "${country}" ]]; then
-     echo 1
-     echo stamp
      ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "stamp" -r $country -v "precip_amount" -f 24 -l 24
-  
+
   else
-     echo 2
      ./plot_grabber.sh -d $now -t $hr -y "*" -z "03" -m "km8p8_ra2t" -p "stamp" -r $country -v precip_amount -f 3 -l "*"
      ./plot_grabber.sh -d $now -t $hr -y "*" -z "15" -m "km8p8_ra2t" -p "stamp" -r $country -v precip_amount -f 3 -l "*"
 
   fi
-  echo 3
-  echo stamp
   ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "km8p8_ra2t" -p "stamp" -r $country -v "precip_amount" -f 24 -l 48
-  echo 4
-  echo nbhood_max
-  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "2*" -x 16mm  
-  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "3*" -x 16mm  
-  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "4*" -x 16mm  
+  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "2*" -x 16mm
+  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "3*" -x 16mm
+  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "4*" -x 16mm
   for threshold in ${pthresholds[@]}
     do
-    echo 5
-    echo nbhood_max
-    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 24 -l 48 -x $threshold  
-  done  
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 24 -l 48 -x $threshold
+  done
 done
 
-echo 6
-echo meteogram
+# Grab all meteograms
 ./plot_grabber.sh -d $now -t $hr -m "km8p8_ra2t"  -p "meteogram" -r "*"
 
-echo Generatig ppts
+echo plots grabbed
 
 cd images
 
+echo reducing file sizes
 ../size_reduction.sh
 
+# separeate into regions
 mkdir afr cafr eafr gha kya nga sen wafr
 
 for country in ${country_list[@]};
  do
- mv *_${country}_*.png $country/ 
+ mv *_${country}_*.png $country/
+ # Move city meteograms to country folders
  if [[ "${country}" = "sen" ]]; then
     mv *DAK*.png $country/
     mv *TBA*.png $country/
@@ -128,13 +115,14 @@ for country in ${country_list[@]};
     mv *NAI*.png $country/
  fi
 
- cd $country 
+ cd $country
+ # genreate country ppt
  python ../../ppt_gen.py
+ # rename and move to public folder
  mv SWIFT_ppt.pptx ${now}T${hr}00Z_${WG}_${country}_CP.pptx
  mv ${now}T${hr}00Z_${WG}_${country}_CP.pptx /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/$now/
  cd ..
  done
-
 echo removing images
 cd ..
 rm -rf images/*
