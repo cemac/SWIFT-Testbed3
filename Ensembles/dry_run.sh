@@ -34,8 +34,8 @@ for i in $(seq  1 1000)
     echo hr is "${hr}" >> output.txt
     echo new dir is "${new_dir}" >>output.txt
     pptsdone="N"
-    globalpptsdone='Y'
-    cppptsdone='Y'
+    globalpptsdone="N"
+    cppptsdone="N"
     for i in $(seq  1 200)
     do
 	echo waiting for files
@@ -55,7 +55,7 @@ for i in $(seq  1 1000)
 	fi
 	no_filescp=$(ls ${url}/${new_dir}/km8p8_ra2t/* | wc -l)
 	
-	if (( ${no_filescp} > 13108 )); then
+	if (( ${no_filescp} > 13080 )); then
 	    if [[ "${cppptsdone}" = "N" ]]; then
 		echo nearly all files found wait 5 mins then run
 		sleep $((60*5))
