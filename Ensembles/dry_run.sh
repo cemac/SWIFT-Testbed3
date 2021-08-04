@@ -34,20 +34,34 @@ for i in $(seq  1 1000)
     echo hr is "${hr}" >> output.txt
     echo new dir is "${new_dir}" >>output.txt
     pptsdone="N"
+    globalpptsdone='Y'
+    cppptsdone='Y'
     for i in $(seq  1 200)
     do
 	echo waiting for files
+	no_filesglobal=$(ls ${url}/${new_dir}/mo-g/* | wc -l)
 	no_files=$(ls ${url}/${new_dir}/* | wc -l)
 	if (( ${no_files} < 41300  )); then
 	sleep $((60*5))
 	fi
-	if (( ${no_files} > 41300  )); then
-	    if [[ "${pptsdone}" = "N" ]]; then
+	if (( ${no_filesglobal} > 28200 )); then
+	    if [[ "${globalpptsdone}" = "N" ]]; then
 		echo nearly all files found wait 5 mins then run
 		sleep $((60*5))
 		echo all files found, start ppt gen
-		./test.sh -d "${date}" -t "${hr}"
-		pptsdone="Y"
+		./test_global.sh -d "${date}" -t "${hr}"
+		globalpptsdone='Y'
+	    fi
+	fi
+	no_filescp=$(ls ${url}/${new_dir}/km8p8_ra2t/* | wc -l)
+	
+	if (( ${no_filescp} > 13108 )); then
+	    if [[ "${cppptsdone}" = "N" ]]; then
+		echo nearly all files found wait 5 mins then run
+		sleep $((60*5))
+		echo all files found, start ppt gen
+		./test_cp.sh -d "${date}" -t "${hr}"
+		cppptsdone='Y'
 	    fi
 	fi
     done
