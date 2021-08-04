@@ -7,7 +7,7 @@ echo -e "test long run sleep script\n" > output.txt
 START="$(date +%s)"
 url=/gws/nopw/j04/swift/public/requests/SWIFT_TB3/july_dryrun/plotting_suite/
 old_nofolders=$(ls -d ${url}*/ | wc -l)
-old_nofolders=2
+old_nofolders=7
 for i in $(seq  1 1000)
  do   
     # sleep for 5 mins
@@ -39,7 +39,7 @@ for i in $(seq  1 1000)
     for i in $(seq  1 200)
     do
 	echo waiting for files
-	no_filesglobal=$(ls ${url}/${new_dir}/mo-g/* | wc -l)
+	no_filesglobal=$(ls ${url}/${new_dir}/mo-g/ | wc -l)
 	no_files=$(ls ${url}/${new_dir}/* | wc -l)
 	if (( ${no_files} < 41300  )); then
 	sleep $((60*5))
@@ -53,7 +53,7 @@ for i in $(seq  1 1000)
 		globalpptsdone='Y'
 	    fi
 	fi
-	no_filescp=$(ls ${url}/${new_dir}/km8p8_ra2t/* | wc -l)
+	no_filescp=$(ls ${url}/${new_dir}/km8p8_ra2t/ | wc -l)
 	
 	if (( ${no_filescp} > 13080 )); then
 	    if [[ "${cppptsdone}" = "N" ]]; then
