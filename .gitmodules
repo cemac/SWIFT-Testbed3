@@ -4,3 +4,6 @@
 [submodule "Nowcasting/SWIFT-gateway"]
 	path = Nowcasting/SWIFT-gateway
 	url = git@github.com:cemac/SWIFT-gateway.git
+[submodule "Synoptic/SWIFT-Synoptic"]
+	path = Synoptic/SWIFT-Synoptic
+	url = git@github.com:cemac/SWIFT-Synoptic.git
