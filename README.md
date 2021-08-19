@@ -24,6 +24,12 @@ See [Wiki](https://github.com/cemac/SWIFT-Testbed3/wiki) for full Documentation.
 
 :construction: documentation in progress :construction:
 
+# Running workflow scripts
+
+The testbed 3 workflow scripts are designed to be generic and run anywhere.
+
+Workflow scripts in Tools folder will generate pptxs for various WGs, requiring anaconda and (install.sh should install all the depenancies)
+
 # Contributing #
 
 * [Logging issues]()
