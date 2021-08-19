@@ -63,21 +63,34 @@ declare -a cutout_list=("afr" "cafr" "eafr" "wafr")
 for country in ${country_list[@]};
  do
   if [[ " ${cutout_list[@]}" =~ "${country}" ]]; then
-     ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "stamp" -r $country -v "precip_amount" -f 24 -l 24
+     ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "km8p8_ra2t" -p "stamp" -r $country -v "precip_amount" -f 24 -l "48"
+     ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "km8p8_ra2t" -p "stamp" -r $country -v "precip_amount" -f 24 -l "72"
+     ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "48" -x "*mm"
+     ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "72" -x "*mm"
 
   else
-     ./plot_grabber.sh -d $now -t $hr -y "*" -z "03" -m "km8p8_ra2t" -p "stamp" -r $country -v precip_amount -f 3 -l "*"
-     ./plot_grabber.sh -d $now -t $hr -y "*" -z "15" -m "km8p8_ra2t" -p "stamp" -r $country -v precip_amount -f 3 -l "*"
-
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "km8p8_ra2t" -p "stamp" -r $country -v "precip_amount" -f 24 -l "48"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "km8p8_ra2t" -p "stamp" -r $country -v "precip_amount" -f 24 -l "72"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "km8p8_ra2t" -p "stamp" -r $country -v "precip_amount" -f 3 -l "24"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "km8p8_ra2t" -p "stamp" -r $country -v "precip_amount" -f 3 -l "27"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "km8p8_ra2t" -p "stamp" -r $country -v "precip_amount" -f 3 -l "3*"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "km8p8_ra2t" -p "stamp" -r $country -v "precip_amount" -f 3 -l "4*"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "km8p8_ra2t" -p "stamp" -r $country -v "precip_amount" -f 3 -l "5*"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "km8p8_ra2t" -p "stamp" -r $country -v "precip_amount" -f 3 -l "6*"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "km8p8_ra2t" -p "stamp" -r $country -v "precip_amount" -f 3 -l "72"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "24" -x 16mm
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "27" -x 16mm
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "3*" -x 16mm
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "4*" -x 16mm
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "5*" -x 16mm
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "6*" -x 16mm
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "72" -x 16mm
   fi
-  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "km8p8_ra2t" -p "stamp" -r $country -v "precip_amount" -f 24 -l 48
-  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "2*" -x 16mm
-  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "3*" -x 16mm
-  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "4*" -x 16mm
   for threshold in ${pthresholds[@]}
     do
     ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 24 -l 48 -x $threshold
-  done
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "km8p8_ra2t" -p "nbhood_max" -r $country -v "precip_amount" -f 24 -l 72 -x $threshold
+    done
 done
 
 # Grab all meteograms

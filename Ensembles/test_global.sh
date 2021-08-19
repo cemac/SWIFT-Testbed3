@@ -69,19 +69,27 @@ declare -a cutout_list=("afr" "cafr" "eafr" "wafr")
 for country in ${country_list[@]};
  do
   if [[ " ${cutout_list[@]}" =~ "${country}" ]]; then
-     ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 24 -l "*"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 24 -l "48"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 24 -l "72"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "48" -x "*mm"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "72" -x "*mm"
+
   else
-     ./plot_grabber.sh -d $now -t $hr -y "*" -z "00" -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 3 -l "*"
-     ./plot_grabber.sh -d $now -t $hr -y "*" -z "12" -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 3 -l "*"
-     
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 3 -l "27"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 3 -l "3*"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 3 -l "4*"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 3 -l "5*"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 3 -l "6*"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 3 -l "72"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 3 -l "75"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "27" -x 16mm
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "3*" -x 16mm
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "4*" -x 16mm
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "5*" -x 16mm
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "6*" -x 16mm
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "72" -x 16mm
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "75" -x 16mm
   fi
-  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 3 -l "2*"
-  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 3 -l "3*"
-  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 3 -l "4*"
-  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 24 -l 45
-  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "2*" -x 16mm  
-  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "3*" -x 16mm  
-  ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "4*" -x 16mm  
 
 done
 ./plot_grabber.sh -d $now -t $hr -m "mo-g"  -p "meteogram" -r "*"
@@ -91,7 +99,7 @@ cd images
 mkdir afr cafr eafr gha kya nga sen wafr
 for country in ${country_list[@]};
 do
-mv *_${country}_*.png $country/ 
+mv *_${country}_*.png $country/
 if [[ "${country}" = "sen" ]]; then
     mv *DAK*.png $country/
     mv *TBA*.png $country/
@@ -109,7 +117,7 @@ elif [[ "${country}" = "kya" ]]; then
     mv *MOM*.png $country/
     mv *NAI*.png $country/
 fi
-cd $country 
+cd $country
 python ../../ppt_gen.py
 mv SWIFT_ppt.pptx ${now}T${hr}00Z_${WG}_${country}_Global.pptx
 mv ${now}T${hr}00Z_${WG}_${country}_Global.pptx /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/$now/
