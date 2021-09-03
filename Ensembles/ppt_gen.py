@@ -3,6 +3,8 @@
 ##
 import pptx
 import pptx.util
+from pptx.util import Inches, Pt
+from pptx.dml.color import RGBColor
 import glob
 import matplotlib.image as mpimg
 from datetime import datetime, timedelta
@@ -60,8 +62,7 @@ def file_striper(filename):
     plottypes = ["nbhood_max", "stamp", "meteogram"]
     # Grab info from file
     filevars = filename.split("_")
-    print(filevars)
-    if "nbhood_max" in filevars:
+    if "nbhood" in filevars:
         plot_type = "nbhood_max"
         tframe = filevars[1]
         date = filevars[9]
@@ -74,8 +75,8 @@ def file_striper(filename):
         date2 = date1 + timedelta(hours=int(tframe[0:-2]))
         date1 = date1.strftime("%Y/%m/%d %H00Z")
         date2 = date2.strftime("%Y/%m/%d %H00Z")
-        title = "Probability rainfall \n> " + threshold + " in " + tframe + "\n\n" + date1  + "-" + date2 + " (T+" + str(L1) + "-" + str(L2) + ")"
-    elif "precip_amount" in filevars:
+        title = "Probability rainfall \n> " + threshold + " in " + tframe + "\n\n" + date1  + "-\n" + date2 + "\n(T+" + str(L1) + "-" + str(L2) + ")"
+    elif "amount" in filevars:
         tframe = filevars[0]
         date = filevars[4]
         hr = filevars[5]
@@ -87,11 +88,11 @@ def file_striper(filename):
         date1 = date1.strftime("%Y/%m/%d %H00Z")
         date2 = date2.strftime("%Y/%m/%d %H00Z")
         plot_type = "stamp"
-        title = str(tframe)+ ' rainfall accumulation' + f"\n" + date1  + "-" + date2 + " (T+" + str(L1) + "-" + str(L2) + ")"
+        title = str(tframe)+ ' rainfall accumulation' + f"\n" + date1  + " - " + date2 + " (T+" + str(L1) + "-" + str(L2) + ")"
     elif "meteogram" in filevars:
         # Grab city code
         region = str(filevars[-1].split(".")[0])
-        title = "Meteogram for " + region
+        title = "Meteogram for\n" + str(city_decoder(region))
         plot_type = "meteogram"
     return title, plot_type, city_decoder(region)
 # new
@@ -101,7 +102,7 @@ prs.slide_height = 5143500
 slide = prs.slides.add_slide(prs.slide_layouts[0])
 # set title
 title = slide.shapes.title
-title.text = OUTPUT_TAG
+title.text = str(country_decoder(code))
 pic_left  = int(prs.slide_width * 0.15)
 pic_top   = int(prs.slide_height * 0.01)
 
@@ -110,12 +111,6 @@ if WG == 'ENS':
         print(g)
         title, plot_type, region = file_striper(g)
         slide = prs.slides.add_slide(prs.slide_layouts[1])
-        shapes = slide.shapes
-        left = top = width = height = Inches(0.5)
-        txBox = slide.shapes.add_textbox(left, top, width, height)
-        tf = txBox.text_frame
-        tf.text = title
-        tf.font.size = Pt(32)
         img = mpimg.imread(g)
         # check aspect ratio and set width and height
         if img.shape[1] > img.shape[0]:  # w > h
@@ -127,8 +122,30 @@ if WG == 'ENS':
         pic_left  = int((prs.slide_width - pic_width) * 0.5)
         pic_top  = int((prs.slide_height - pic_height) * 0.5)
         #pic   = slide.shapes.add_picture(g, pic_left, pic_top)
-        pic   = slide.shapes.add_picture(g, pic_left, pic_top, pic_width, pic_height)
-    prs.save("%s" + str(country_decoder(code)) + ".pptx" % OUTPUT_TAG)
+        shapes = slide.shapes
+        
+        top  = Inches(0.2)
+        if plot_type in ["nbhood_max", "meteogram"]:
+            left = Inches(0.7)
+            width = Inches(1)
+            height = Inches(4)
+            pic = slide.shapes.add_picture(g, int(pic_left*1.7), pic_top, pic_width, pic_height)
+        else:
+            left = Inches(2.5)
+            width = Inches(4)
+            height = Inches(0.5)
+            pic   = slide.shapes.add_picture(g, pic_left, pic_top, pic_width, pic_height)
+
+        txbox = slide.shapes.add_textbox(left, top, width, height)
+        txbox.fill.solid()
+        txbox.fill.fore_color.rgb = RGBColor(255, 255, 255)
+        tf = txbox.text_frame
+        p = tf.add_paragraph()
+        p.text = title
+        p.font.size = Pt(16)
+
+        
+    prs.save("%s" % OUTPUT_TAG  + str(country_decoder(code)) + ".pptx")
 else:
     for g in glob.glob("*"):
         print(g)
