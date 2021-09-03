@@ -69,10 +69,10 @@ declare -a cutout_list=("afr" "cafr" "eafr" "wafr")
 for country in ${country_list[@]};
  do
   if [[ " ${cutout_list[@]}" =~ "${country}" ]]; then
-    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 24 -l "48"
-    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 24 -l "72"
-    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "48" -x "*mm"
-    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "72" -x "*mm"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 24 -l "45"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*"  -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 24 -l "69"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "45" -x "*mm"
+    ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "nbhood_max" -r $country -v "precip_amount" -f 3 -l "69" -x "*mm"
 
   else
     ./plot_grabber.sh -d $now -t $hr -y "*" -z "*" -m "mo-g" -p "stamp" -r $country -v "precip_amount" -f 3 -l "27"
