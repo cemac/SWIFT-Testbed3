@@ -18,7 +18,7 @@ parser = argparse.ArgumentParser(description=dstring)
 parser.add_argument("--WG", help=hstring, type=str)
 parser.add_argument("--OUT", help=hstring, type=str)
 parser.add_argument("--R", help=hstring, type=str)
-
+args = parser.parse_args()
 if args.WG:
     WG = args.WG
 else:
