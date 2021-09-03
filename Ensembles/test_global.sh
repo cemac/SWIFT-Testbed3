@@ -98,30 +98,49 @@ cd images
 ../size_reduction.sh
 mkdir afr cafr eafr gha kya nga sen wafr
 for country in ${country_list[@]};
-do
-mv *_${country}_*.png $country/
-if [[ "${country}" = "sen" ]]; then
+ do
+ mv *_${country}_*.png $country/
+ # Move city meteograms to country folders
+ if [[ "${country}" = "sen" ]]; then
     mv *DAK*.png $country/
     mv *TBA*.png $country/
     mv *TOU*.png $country/
-elif [[ "${country}" = "gha" ]]; then
+ elif [[ "${country}" = "gha" ]]; then
     mv *ACC*.png $country/
     mv *KUM*.png $country/
     mv *TAM*.png $country/
-elif [[ "${country}" = "nga" ]]; then
+ elif [[ "${country}" = "nga" ]]; then
     mv *ABU*.png $country/
     mv *KAN*.png $country/
     mv *LAG*.png $country/
-elif [[ "${country}" = "kya" ]]; then
+    mv *POR*.png $country/
+    mv *ENU*.png $country/
+ elif [[ "${country}" = "kya" ]]; then
     mv *LAK*.png $country/
     mv *MOM*.png $country/
     mv *NAI*.png $country/
-fi
-cd $country
-python ../../ppt_gen.py
-mv SWIFT_ppt.pptx ${now}T${hr}00Z_${WG}_${country}_Global.pptx
-mv ${now}T${hr}00Z_${WG}_${country}_Global.pptx /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/$now/
-cd ..
+    mv *LAM*.png $country/
+    mv *VOI*.png $country/
+    mv *GAR*.png $country/
+    mv *MAN*.png $country/
+    mv *MAR*.png $country/
+    mv *KAK*.png $country/
+    mv *KIT*.png $country/
+    mv *KER*.png $country/
+    mv *KIS*.png $country/
+    mv *NAI*.png $country/
+    mv *NYE*.png $country/
+    mv *MER*.png $country/
+    mv *NAK*.png $country/
+    mv *NAR*.png $country/
+    mv *MAC*.png $country/
+    mv *KTU*.png $country/
+ fi
+
+ cd $country
+ python --WG "ENS" --OUT "${now}T${hr}00Z_${WG}_Global_" --R "${country}" ../../ppt_gen.py
+ mv ${now}T${hr}00Z_${WG}_Global_*.pptx /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/$now/
+ cd ..
 done
 echo removing images
 cd ..

@@ -17,7 +17,7 @@ conda activate swift_tb3
 # WG
 WG=ensembles
 tag=""
-now=20210515
+now=20210808
 hr=00
 print_usage() {
   echo "
@@ -122,18 +122,36 @@ for country in ${country_list[@]};
     mv *ABU*.png $country/
     mv *KAN*.png $country/
     mv *LAG*.png $country/
+    mv *POR*.png $country/
+    mv *ENU*.png $country/
  elif [[ "${country}" = "kya" ]]; then
     mv *LAK*.png $country/
     mv *MOM*.png $country/
     mv *NAI*.png $country/
+    mv *LAM*.png $country/
+    mv *VOI*.png $country/
+    mv *GAR*.png $country/
+    mv *MAN*.png $country/
+    mv *MAR*.png $country/
+    mv *KAK*.png $country/
+    mv *KIT*.png $country/
+    mv *KER*.png $country/
+    mv *KIS*.png $country/
+    mv *NAI*.png $country/
+    mv *NYE*.png $country/
+    mv *MER*.png $country/
+    mv *NAK*.png $country/
+    mv *NAR*.png $country/
+    mv *MAC*.png $country/
+    mv *KTU*.png $country/
  fi
 
  cd $country
  # genreate country ppt
  python ../../ppt_gen.py
  # rename and move to public folder
- mv SWIFT_ppt.pptx ${now}T${hr}00Z_${WG}_${country}_CP.pptx
- mv ${now}T${hr}00Z_${WG}_${country}_CP.pptx /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/$now/
+ python --WG "ENS" --OUT "${now}T${hr}00Z_${WG}_CP_" --R "${country}" ../../ppt_gen.py
+ mv ${now}T${hr}00Z_${WG}_CP*.pptx /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/$now/
  cd ..
  done
 echo removing images
