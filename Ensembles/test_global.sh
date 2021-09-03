@@ -138,10 +138,12 @@ for country in ${country_list[@]};
  fi
 
  cd $country
- python --WG "ENS" --OUT "${now}T${hr}00Z_${WG}_Global_" --R "${country}" ../../ppt_gen.py
+ python  ../../ppt_gen.py --WG "ENS" --OUT "${now}T${hr}00Z_${WG}_Global_" --R "${country}"
  mv ${now}T${hr}00Z_${WG}_Global_*.pptx /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/$now/
  cd ..
 done
 echo removing images
 cd ..
 rm -rf images/*
+
+24hr_precip_amount_cafr_*_*00Z_T72.0.png’: No such file or directory
