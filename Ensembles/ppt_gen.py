@@ -60,6 +60,7 @@ def file_striper(filename):
     plottypes = ["nbhood_max", "stamp", "meteogram"]
     # Grab info from file
     filevars = filename.split("_")
+    print(filevars)
     if "nbhood_max" in filevars:
         plot_type = "nbhood_max"
         tframe = filevars[1]
