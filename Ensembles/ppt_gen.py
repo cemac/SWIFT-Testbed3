@@ -89,7 +89,7 @@ def file_striper(filename):
         title = str(tframe)+ ' rainfall accumulation' + f"\n" + date1  + "-" + date2 + " (T+" + str(L1) + "-" + str(L2) + ")"
     elif "meteogram" in filevars:
         # Grab city code
-        region = str(filevars[-1].split(".")[0]
+        region = str(filevars[-1].split(".")[0])
         title = "Meteogram for " + region
         plot_type = "meteogram"
     return title, plot_type, city_decoder(region)

@@ -145,5 +145,3 @@ done
 echo removing images
 cd ..
 rm -rf images/*
-
-24hr_precip_amount_cafr_*_*00Z_T72.0.png’: No such file or directory
