@@ -162,7 +162,7 @@ for country in ${country_list[@]};
  # genreate country ppt
  python ../../ppt_gen.py
  # rename and move to public folder
- python  ../../ppt_gen.py --WG "ENS" --OUT "${now}T${hr}00Z_${WG}_CP_" --R "${country}"
+ python  ../../ppt_gen.py --WG "ENS" --OUT "${now}T${hr}00Z_${WG}_CP_" --R ${country}
  mv ${now}T${hr}00Z_${WG}_CP*.pptx /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/$now/
  cd ..
  done
