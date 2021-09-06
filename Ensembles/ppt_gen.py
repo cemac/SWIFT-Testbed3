@@ -33,6 +33,7 @@ else:
 
 if args.R:
     code = args.R
+    print(code)
 else:
     code = " "
 
