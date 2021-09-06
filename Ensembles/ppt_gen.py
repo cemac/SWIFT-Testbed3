@@ -124,13 +124,15 @@ if WG == 'ENS':
         #pic   = slide.shapes.add_picture(g, pic_left, pic_top)
         shapes = slide.shapes
 
-        top  = Inches(0.2)
+
         if plot_type in ["nbhood_max", "meteogram"]:
+            top  = Inches(0.2)
             left = Inches(0.7)
             width = Inches(1)
             height = Inches(4)
             pic = slide.shapes.add_picture(g, int(pic_left*1.7), pic_top, pic_width, pic_height)
         else:
+            top  = Inches(1)
             left = Inches(2.5)
             width = Inches(4)
             height = Inches(0.5)
