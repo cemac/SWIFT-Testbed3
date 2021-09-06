@@ -110,7 +110,7 @@ if WG == 'ENS':
     for g in glob.glob("*"):
         print(g)
         title, plot_type, region = file_striper(g)
-        slide = prs.slides.add_slide(prs.slide_layouts[7])
+        slide = prs.slides.add_slide(prs.slide_layouts[6])
         img = mpimg.imread(g)
         # check aspect ratio and set width and height
         if img.shape[1] > img.shape[0]:  # w > h
@@ -149,7 +149,7 @@ if WG == 'ENS':
 else:
     for g in glob.glob("*"):
         print(g)
-        slide = prs.slides.add_slide(prs.slide_layouts[7])
+        slide = prs.slides.add_slide(prs.slide_layouts[6])
         shapes = slide.shapes
         shapes.title.text = g
         img = mpimg.imread(g)
