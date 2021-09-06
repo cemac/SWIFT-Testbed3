@@ -144,4 +144,4 @@ for country in ${country_list[@]};
 done
 echo removing images
 cd ..
-#rm -rf images/*
+rm -rf images/*

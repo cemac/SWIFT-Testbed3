@@ -110,7 +110,7 @@ if WG == 'ENS':
     for g in glob.glob("*"):
         print(g)
         title, plot_type, region = file_striper(g)
-        slide = prs.slides.add_slide(prs.slide_layouts[1])
+        slide = prs.slides.add_slide(prs.slide_layouts[7])
         img = mpimg.imread(g)
         # check aspect ratio and set width and height
         if img.shape[1] > img.shape[0]:  # w > h
@@ -123,7 +123,7 @@ if WG == 'ENS':
         pic_top  = int((prs.slide_height - pic_height) * 0.5)
         #pic   = slide.shapes.add_picture(g, pic_left, pic_top)
         shapes = slide.shapes
-        
+
         top  = Inches(0.2)
         if plot_type in ["nbhood_max", "meteogram"]:
             left = Inches(0.7)
@@ -144,12 +144,12 @@ if WG == 'ENS':
         p.text = title
         p.font.size = Pt(16)
 
-        
+
     prs.save("%s" % OUTPUT_TAG  + str(country_decoder(code)) + ".pptx")
 else:
     for g in glob.glob("*"):
         print(g)
-        slide = prs.slides.add_slide(prs.slide_layouts[1])
+        slide = prs.slides.add_slide(prs.slide_layouts[7])
         shapes = slide.shapes
         shapes.title.text = g
         img = mpimg.imread(g)
