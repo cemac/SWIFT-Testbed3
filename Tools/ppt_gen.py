@@ -185,4 +185,28 @@ else:
         pic_top  = int((prs.slide_height - pic_height) * 0.5)
         #pic   = slide.shapes.add_picture(g, pic_left, pic_top)
         pic   = slide.shapes.add_picture(g, pic_left, pic_top, pic_width, pic_height)
+        if WG == 'SYNOP':
+            # Add legend based on filename
+            # e.g. 20210831_0600_069_WA_convective.png
+            filevars = g.split(".")[0].split("_")
+            region = filevars[3]
+            chart_type = filevars[4]
+            if chart_type == "synthesis":
+                chart_type = "summary"
+            elif chart_type == "wa-jets-waves":
+                chart_type = "jets"
+            path = f'../../legends/{region}_{chart_type}.png'
+            try:
+                img = mpimg.imread(path)
+                # set width and position to fit beside chart
+                w = pic_left
+                h = int(w * img.shape[0] / img.shape[1])
+                if h > prs.slide_height:
+                    h = int(prs.slide_height * 0.98)
+                    w = int(h * img.shape[1] / img.shape[0])
+                left  = 0
+                top  = int((prs.slide_height - h) * 0.5)
+                legend = slide.shapes.add_picture(path, left, top, width=w, height=h)
+            except:
+                print("Couldn't find legend file: ", path)
     prs.save("%s.pptx" % OUTPUT_TAG)
