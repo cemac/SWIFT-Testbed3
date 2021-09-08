@@ -169,12 +169,10 @@ if WG == 'ENS':
     # save with country name
     prs.save("%s" % OUTPUT_TAG  + str(country_decoder(code)) + ".pptx")
 else:
-    # For synopic plots
+    # For synoptic/other plots
     for g in glob.glob("*"):
         print(g)
         slide = prs.slides.add_slide(prs.slide_layouts[6])
-        shapes = slide.shapes
-        shapes.title.text = g
         img = mpimg.imread(g)
         # check aspect ratio and set width and height
         if img.shape[1] > img.shape[0]:  # w > h
