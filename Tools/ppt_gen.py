@@ -41,7 +41,7 @@ def country_decoder(code):
     # Decode 3 letter string and return full country name
     countrynames = {"sen":"Senegal", "gha":"Ghana", "nga":"Nigeria",
                  "kya":"Kenya", "afr":"Africa",  "cafr":"Central Africa",
-                 "eafr":"East Aftrica" ,"wafr":"West Africa"}
+                 "eafr":"East Africa", "wafr":"West Africa"}
     return countrynames[code]
 
 def city_decoder(code):
@@ -56,7 +56,7 @@ def city_decoder(code):
                  "MER":"Meru", "NAK":"Nakuru", "NAR":"Narok", "MAC":"Machakos",
                  "KIT":'Kitui', "LAG":"Lagos", "POR":"Port_Harcourt","ENU":"Enugu",
                  "sen":"Senegal", "gha":"Ghana", "nga":"Nigeria", "kya":"Kenya",
-                 "afr":"Africa",  "cafr":"Central Africa", "eafr":"East Aftrica",
+                 "afr":"Africa",  "cafr":"Central Africa", "eafr":"East Africa",
                  "wafr":"West Africa"}
     return citynames[code]
 
