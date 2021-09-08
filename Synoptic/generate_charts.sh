@@ -49,9 +49,9 @@ for date in $dates; do
 	if [ $dom = 'PA' ]; then
 	    chart_types="low"
 	elif [ $dom = 'EA' ]; then
-	    chart_types="low conv"
+	    chart_types="low conv synth"
 	else
-	    chart_types="low jets conv"
+	    chart_types="low jets conv synth"
 	fi
 	for chart_type in ${chart_types}; do
             out_dir=$plot_dir/$YYYYMMDD$HH/$dom/$chart_type/
