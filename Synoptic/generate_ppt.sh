@@ -62,7 +62,8 @@ do
 	    cd $images_dir
 	    . $tools_dir/size_reduction.sh
 	    [[ $tag = "WA" ]] && code="wafr" || code="eafr"
-	    filename=$now"_"$WG"_"$tag"_"$ppt_type
+	    [[ $ppt_type = "full" ]] && suffix="" || suffix="_for_nowcasting_briefing"
+	    filename=$now"_"$WG"_"$tag"_synthetic_charts"$suffix
 	    python $tools_dir/ppt_gen.py --R $code --OUT $filename --WG SYNOP
 	    mv $filename.pptx $ppt_dir
 	done
