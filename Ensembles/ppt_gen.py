@@ -41,13 +41,13 @@ else:
 def country_decoder(code):
     countrynames = {"sen":"Senegal", "gha":"Ghana", "nga":"Nigeria",
                  "kya":"Kenya", "afr":"Africa",  "cafr":"Central Africa",
-                 "eafr":"East Aftrica" ,"wafr":"West Africa"}
+                 "eafr":"East_Africa" ,"wafr":"West_Africa"}
     return countrynames[code]
 
 def city_decoder(code):
     citynames = {"DAK":"Dakar", "TBA":"Tambacounda", "TOU":"Touba",
                  "ACC":"Accra", "KUM":"Kumasi", "TAM":"Tamale", "ABU":"Abuja",
-                 "KAN":"Kano", "LAG":"Lagos", "LAK":"Lake Victoria",
+                 "KAN":"Kano", "LAG":"Lagos", "LAK":"Lake_Victoria",
                  "MOM":"Mombasa Nairobi", "LAM":"Lamu", "VOI":"Voi",
                  "LOD":"Lodwar", "GAR":"Garissa", "MAN":"Mandera",
                  "MAR":"Marsabit", "KAK":"Kakamega", "KIT":"Kitale",
@@ -55,8 +55,8 @@ def city_decoder(code):
                  "MER":"Meru", "NAK":"Nakuru", "NAR":"Narok", "MAC":"Machakos",
                  "KIT":'Kitui', "LAG":"Lagos", "POR":"Port_Harcourt","ENU":"Enugu",
                  "sen":"Senegal", "gha":"Ghana", "nga":"Nigeria", "kya":"Kenya",
-                 "afr":"Africa",  "cafr":"Central Africa", "eafr":"East Aftrica",
-                 "wafr":"West Africa"}
+                 "afr":"Africa",  "cafr":"Central_Africa", "eafr":"East_Africa",
+                 "wafr":"West_Africa"}
     return citynames[code]
 
 def file_striper(filename):
@@ -133,7 +133,12 @@ if WG == 'ENS':
             height = Inches(4)
             pic = slide.shapes.add_picture(g, int(pic_left*1.7), pic_top, pic_width, pic_height)
         else:
-            top  = Inches(1)
+            if region in ["Africa", "East_Africa", "Central_Africa", "West_Africa"]:
+                top  = Inches(0.5)
+                if region == "Africa":
+                    top = Inches(1)
+            else:
+                top  = Inches(0.2)
             left = Inches(2.5)
             width = Inches(4)
             height = Inches(0.5)

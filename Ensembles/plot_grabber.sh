@@ -98,7 +98,7 @@ done
 # if to be run on jasmin
 if [ jas=='Y' ]; then
     # PATH to plots root dir
-    url="/gws/nopw/j04/swift/public/requests/SWIFT_TB3/july_dryrun/plotting_suite/"
+    url="/gws/nopw/j04/swift/public/requests/SWIFT_TB3/WEEK1_06_12_Sep/"
 elif [[ jas=='N' ]]; then
     # Environment sourced url
     url=${URL}

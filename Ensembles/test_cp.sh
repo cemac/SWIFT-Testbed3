@@ -50,7 +50,7 @@ while getopts 'd:t:h' flag; do
 done
 
 # make folder
-mkdir /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/$now
+mkdir /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/${now}_${hr}00
 # String arrays to loop through
 # all cutouts
 declare -a country_list=("afr" "cafr" "eafr" "gha" "kya" "nga" "sen" "wafr")
@@ -160,10 +160,10 @@ for country in ${country_list[@]};
 
  cd $country
  # genreate country ppt
- python ../../ppt_gen.py
  # rename and move to public folder
- python  ../../ppt_gen.py --WG "ENS" --OUT "${now}T${hr}00Z_${WG}_CP_" --R ${country}
- mv ${now}T${hr}00Z_${WG}_CP*.pptx /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/$now/
+ echo "countr is ${country}"
+ python  ../../ppt_gen.py --WG "ENS" --OUT "${now}T${hr}00Z_${WG}_CP_" --R $country
+ mv ${now}T${hr}00Z_${WG}_CP*.pptx /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/${now}_${hr}00/
  cd ..
  done
 echo removing images

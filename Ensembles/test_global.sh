@@ -145,7 +145,7 @@ for country in ${country_list[@]};
 
  cd $country
  python  ../../ppt_gen.py --WG "ENS" --OUT "${now}T${hr}00Z_${WG}_Global_" --R ${country}
- mv ${now}T${hr}00Z_${WG}_Global_*.pptx /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/$now_${hr}00/
+ mv ${now}T${hr}00Z_${WG}_Global_*.pptx /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/${now}_${hr}00/
  cd ..
 done
 echo removing images
