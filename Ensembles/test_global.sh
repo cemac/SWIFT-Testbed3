@@ -151,3 +151,4 @@ done
 echo removing images
 cd ..
 rm -rf images/*
+echo "${now}T${hr}00Z_${WG}_Global ppts generated" | mailx -s "Testbed3 automatic ppts" h.l.burns@leeds.ac.uk

@@ -169,3 +169,4 @@ for country in ${country_list[@]};
 echo removing images
 cd ..
 rm -rf images/*
+echo "${now}T${hr}00Z_${WG}_CP ppts generated" | mailx -s "Testbed3 automatic ppts" h.l.burns@leeds.ac.uk
