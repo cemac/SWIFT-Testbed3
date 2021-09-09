@@ -41,7 +41,7 @@ def country_decoder(code):
     # Decode 3 letter string and return full country name
     countrynames = {"sen":"Senegal", "gha":"Ghana", "nga":"Nigeria",
                  "kya":"Kenya", "afr":"Africa",  "cafr":"Central Africa",
-                 "eafr":"East Aftrica" ,"wafr":"West Africa"}
+                 "eafr":"East Africa", "wafr":"West Africa"}
     return countrynames[code]
 
 def city_decoder(code):
@@ -56,7 +56,7 @@ def city_decoder(code):
                  "MER":"Meru", "NAK":"Nakuru", "NAR":"Narok", "MAC":"Machakos",
                  "KIT":'Kitui', "LAG":"Lagos", "POR":"Port_Harcourt","ENU":"Enugu",
                  "sen":"Senegal", "gha":"Ghana", "nga":"Nigeria", "kya":"Kenya",
-                 "afr":"Africa",  "cafr":"Central Africa", "eafr":"East Aftrica",
+                 "afr":"Africa",  "cafr":"Central Africa", "eafr":"East Africa",
                  "wafr":"West Africa"}
     return citynames[code]
 
@@ -169,12 +169,10 @@ if WG == 'ENS':
     # save with country name
     prs.save("%s" % OUTPUT_TAG  + str(country_decoder(code)) + ".pptx")
 else:
-    # For synopic plots
+    # For synoptic/other plots
     for g in glob.glob("*"):
         print(g)
         slide = prs.slides.add_slide(prs.slide_layouts[6])
-        shapes = slide.shapes
-        shapes.title.text = g
         img = mpimg.imread(g)
         # check aspect ratio and set width and height
         if img.shape[1] > img.shape[0]:  # w > h
@@ -187,4 +185,28 @@ else:
         pic_top  = int((prs.slide_height - pic_height) * 0.5)
         #pic   = slide.shapes.add_picture(g, pic_left, pic_top)
         pic   = slide.shapes.add_picture(g, pic_left, pic_top, pic_width, pic_height)
+        if WG == 'SYNOP':
+            # Add legend based on filename
+            # e.g. 20210831_0600_069_WA_convective.png
+            filevars = g.split(".")[0].split("_")
+            region = filevars[3]
+            chart_type = filevars[4]
+            if chart_type == "synthesis":
+                chart_type = "summary"
+            elif chart_type == "wa-jets-waves":
+                chart_type = "jets"
+            path = f'../../legends/{region}_{chart_type}.png'
+            try:
+                img = mpimg.imread(path)
+                # set width and position to fit beside chart
+                w = pic_left
+                h = int(w * img.shape[0] / img.shape[1])
+                if h > prs.slide_height:
+                    h = int(prs.slide_height * 0.98)
+                    w = int(h * img.shape[1] / img.shape[0])
+                left  = 0
+                top  = int((prs.slide_height - h) * 0.5)
+                legend = slide.shapes.add_picture(path, left, top, width=w, height=h)
+            except:
+                print("Couldn't find legend file: ", path)
     prs.save("%s.pptx" % OUTPUT_TAG)

@@ -22,11 +22,14 @@ fi
 # Activate SWIFT TB3 environment
 conda activate swift_tb3
 
-tools_dir=/gws/nopw/j04/swift/SWIFT-Testbed3/Tools
+#tb3_dir=/gws/nopw/j04/swift/SWIFT-Testbed3
+tb3_dir=~/SWIFT-Testbed3
+tools_dir=$tb3_dir/Tools
 
 # WG
 WG=synoptic
 init=${1:-$(grep init $SWIFT_GFS/controls/namelist | cut -d':' -f2 | tr ',' '\n')}
+domain=$(grep region $SWIFT_GFS/controls/namelist | cut -d':' -f2 | tr ',' '\n')
 
 for now in $init
 do
@@ -34,18 +37,35 @@ do
     ppt_dir=/gws/nopw/j04/swift/public/TestBed3/Synoptic_ppts/$now
     mkdir -p $ppt_dir
 
-    cd $TMPDIR
-    mkdir -p images
+    # Set up temp directory structure for creating PPTs
+    mkdir -p $TMPDIR/ppt_gen
 
-    for tag in WA EA
+    # Link to legends directory
+    [[ ! -d $TMPDIR/ppt_gen/legends ]] && ln -s $tb3_dir/Synoptic/legends $TMPDIR/ppt_gen
+
+    for tag in $domain
     do
-	rm images/*
-	find $SWIFT_GFS/plots/$now/PA $SWIFT_GFS/plots/$now/$tag -iname '*.png' -exec cp --target-directory images {} \;
-	cd images
-	. $tools_dir/size_reduction.sh
-	cd ..
-	python $tools_dir/ppt_gen.py
-	mv SWIFT_ppt.pptx $ppt_dir/$now"_"$WG"_"$tag".pptx"
+	[[ $tag = "PA" ]] && continue
+	# Create separate powerpoints for full synoptic charts and synthesis charts
+	for ppt_type in full synth
+	do
+	    images_dir=$TMPDIR/ppt_gen/$tag/$ppt_type
+	    mkdir -p $images_dir
+	    rm $images_dir/*
+	    if [ $ppt_type = "full" ]
+	    then
+		search_dirs="$SWIFT_GFS/plots/$now/PA $SWIFT_GFS/plots/$now/$tag/low $SWIFT_GFS/plots/$now/$tag/jets $SWIFT_GFS/plots/$now/$tag/conv"
+	    else
+		search_dirs="$SWIFT_GFS/plots/$now/PA $SWIFT_GFS/plots/$now/$tag/synth"
+	    fi
+	    find ${search_dirs} -iname '*.png' -exec cp --target-directory ${images_dir} {} \;
+	    cd $images_dir
+	    . $tools_dir/size_reduction.sh
+	    [[ $tag = "WA" ]] && code="wafr" || code="eafr"
+	    filename=$now"_"$WG"_"$tag"_"$ppt_type
+	    python $tools_dir/ppt_gen.py --R $code --OUT $filename --WG SYNOP
+	    mv $filename.pptx $ppt_dir
+	done
     done
 done
 
