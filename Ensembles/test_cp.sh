@@ -138,6 +138,7 @@ for country in ${country_list[@]};
     mv *ENU*.png $country/
  elif [[ "${country}" = "kya" ]]; then
     mv *LAK*.png $country/
+    mv *LOD*.png $country/
     mv *MOM*.png $country/
     mv *NAI*.png $country/
     mv *LAM*.png $country/
@@ -148,8 +149,7 @@ for country in ${country_list[@]};
     mv *KAK*.png $country/
     mv *KIT*.png $country/
     mv *KER*.png $country/
-    mv *KIS*.png $country/
-    mv *NAI*.png $country/
+    mv *KIM*.png $country/
     mv *NYE*.png $country/
     mv *MER*.png $country/
     mv *NAK*.png $country/

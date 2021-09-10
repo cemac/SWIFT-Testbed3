@@ -53,9 +53,9 @@ def city_decoder(code):
                  "MOM": "Mombasa", "LAM": "Lamu", "VOI": "Voi",
                  "LOD": "Lodwar", "GAR": "Garissa", "MAN": "Mandera",
                  "MAR": "Marsabit", "KAK": "Kakamega", "KIT": "Kitale",
-                 "KER": "Kericho", "KIS": "Kisumu", "NAI": "Nairobi", "NYE": "Nyeri",
+                 "KER": "Kericho", "KIM": "Kisumu", "NAI": "Nairobi", "NYE": "Nyeri",
                  "MER": "Meru", "NAK": "Nakuru", "NAR": "Narok", "MAC": "Machakos",
-                 "KTU": 'Kitui', "LAG": "Lagos", "POR": "Port_Harcourt", "ENU": "Enugu",
+                 "KTU": 'Kitui', "POR": "Port_Harcourt", "ENU": "Enugu",
                  "sen": "Senegal", "gha": "Ghana", "nga": "Nigeria", "kya": "Kenya",
                  "afr": "Africa",  "cafr": "Central_Africa", "eafr": "East_Africa",
                  "wafr": "West_Africa"}
