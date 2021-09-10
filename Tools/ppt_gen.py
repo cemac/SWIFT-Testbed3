@@ -209,4 +209,7 @@ else:
                 legend = slide.shapes.add_picture(path, left, top, width=w, height=h)
             except:
                 print("Couldn't find legend file: ", path)
+    if WG == "SYNOP":
+        if OUTPUT_TAG.find("nowcasting") > -1:
+            title.text += " simplified synthetic analysis charts for the nowcasting briefings"
     prs.save("%s.pptx" % OUTPUT_TAG)
