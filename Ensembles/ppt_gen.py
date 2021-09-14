@@ -79,16 +79,16 @@ def file_striper(filename):
         region = filevars[-4]
         # Extract lead time
         L1 = int(filevars[-1].split(".")[0][1:])
-        L2 = L1 + int(tframe[0:-2])
+        L2 = L1 - int(tframe[0:-2])
         # Turn into date time and get date range and return to date string
         date1 = datetime.strptime(str(date + hr[0:2]), '%Y%m%d%H')
-        date2 = date1 + timedelta(hours=int(tframe[0:-2]))
+        date2 = date1 - timedelta(hours=int(tframe[0:-2]))
         date1 = date1.strftime("%Y/%m/%d %H00Z")
         date2 = date2.strftime("%Y/%m/%d %H00Z")
         # Generate title
         title = "Probability rainfall \n> " + threshold + " in " + tframe + \
-            "\n\n" + date1 + "-\n" + date2 + \
-                "\n(T+" + str(L1) + "-" + str(L2) + ")"
+            "\n\n" + date2 + "-\n" + date1 + \
+                "\n(T+" + str(L2) + "-" + str(L1) + ")"
     elif "amount" in filevars:
         # pick out stamp plots
         # grab metadata
@@ -97,17 +97,17 @@ def file_striper(filename):
         hr = filevars[5]
         # Extract lead time
         L1 = int(filevars[-1].split(".")[0][1:])
-        L2 = L1 + int(tframe[0:-2])
+        L2 = L1 - int(tframe[0:-2])
         region = filevars[3]
         # Turn into date time and get date range and return to date string
         date1 = datetime.strptime(str(date + hr[0:2]), '%Y%m%d%H')
-        date2 = date1 + timedelta(hours=int(tframe[0:-2]))
+        date2 = date1 - timedelta(hours=int(tframe[0:-2]))
         date1 = date1.strftime("%Y/%m/%d %H00Z")
         date2 = date2.strftime("%Y/%m/%d %H00Z")
         plot_type = "stamp"
         # Generate title
         title = str(tframe) + ' rainfall accumulation' + f"\n" + \
-            date1 + " - " + date2 + " (T+" + str(L1) + "-" + str(L2) + ")"
+            date2 + " - " + date1 + " (T+" + str(L2) + "-" + str(L1) + ")"
     elif "meteogram" in filevars:
         # Grab city code
         region = str(filevars[-1].split(".")[0])
