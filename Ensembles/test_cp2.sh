@@ -122,6 +122,8 @@ for country in ${country_list[@]};
     mv *ACC*.png $country/
     mv *KUM*.png $country/
     mv *TAM*.png $country/
+    mv *GHANA_*.png $country/
+
  elif [[ "${country}" = "nga" ]]; then
     mv *ABU*.png $country/
     mv *KAN*.png $country/
@@ -147,13 +149,11 @@ for country in ${country_list[@]};
     mv *NAK*.png $country/
     mv *NAR*.png $country/
     mv *MAC*.png $country/
-    mv *KTU*.png $country/
  fi
 
  cd $country
  # genreate country ppt
  # rename and move to public folder
- echo "countr is ${country}"
  python  ../../ppt_gen.py --WG "ENS" --OUT "${now}T${hr}00Z_${WG}_CP_" --R $country
  mv ${now}T${hr}00Z_${WG}_CP*.pptx /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/${now}_${hr}00/
  cd ..

@@ -56,13 +56,7 @@ done
 # For
 mkdir /gws/nopw/j04/swift/public/TestBed3/Ensembles_ppts/${now}_${hr}00
 # Available vars
-#varlists=["Precip3hr_r" "PrecipRate_r" ]
-#stampvarlis=["precip_amount"]
-#modellist=["mo-g"  "km8p8_ra2t"]
-#regionlist=["TAfr" "CAfr2" "WAfrs" "wafr" "GuinC" "EAfr1B" "EAfr1Bs" "Sengl" "EAfr1Bs"]
-#citylist=["ABU" "ACC"  "DAK" "KAN" "KUM" "LAG" "LAK" "MOM" "NAI" "TAM" "TBA" "TOU"]
 declare -a country_list=("afr" "cafr" "eafr" "gha" "kya" "nga" "sen" "wafr")
-#probvar=["24hr_precip_amount" ]
 declare -a pthresholds=("32mm"  "64mm"  "128mm")
 declare -a cutout_list=("afr" "cafr" "eafr" "wafr")
 
@@ -106,6 +100,7 @@ for country in ${country_list[@]};
     mv *ACC*.png $country/
     mv *KUM*.png $country/
     mv *TAM*.png $country/
+    mv *GHANA_*.png $country/
  elif [[ "${country}" = "nga" ]]; then
     mv *ABU*.png $country/
     mv *KAN*.png $country/
@@ -131,7 +126,7 @@ for country in ${country_list[@]};
     mv *NAK*.png $country/
     mv *NAR*.png $country/
     mv *MAC*.png $country/
-    mv *KTU*.png $country/
+
  fi
 
  cd $country

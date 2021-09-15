@@ -58,7 +58,28 @@ def city_decoder(code):
                  "KTU": 'Kitui', "POR": "Port_Harcourt", "ENU": "Enugu",
                  "sen": "Senegal", "gha": "Ghana", "nga": "Nigeria", "kya": "Kenya",
                  "afr": "Africa",  "cafr": "Central_Africa", "eafr": "East_Africa",
-                 "wafr": "West_Africa"}
+                 "wafr": "West_Africa","GHANA_ABE": "Abetifi ", "GHANA_ACCACA": "Accaca academy",
+                 "GHANA_ACC": "Accaca Girls", "GHANA_ADA": "Ada ",
+                 "GHANA_AGISS": "GHANA_AGISS", "GHANA_AKAN": "Akanseringa",
+                 "GHANA_AKA": "Akatsi", "GHANA_AKU": " ",
+                 "GHANA_AODA": "Akim Oda ", "GHANA_ARCH": " ",
+                 "GHANA_ATTC": "Attc circle", "GHANA_AXI": "Axim",
+                 "GHANA_BAA": "Baasa", "GHANA_BOL": "Bole",
+                 "GHANA_GUL": "Gulumpe", "GHANA_HO": "Ho",
+                 "GHANA_JIR": "Jirapa", "GHANA_KKRA": "Kete Krachi",
+                 "GHANA_KOF": "Koforidua", "GHANA_KOLEBU": "GHANA_KOLEBU",
+                 "GHANA_KSI": "GHANA KSI", "GHANA_KUS": "Kushegu",
+                 "GHANA_LOA": "Loagri NO2 ", "GHANA_MAMO": "Maobi Poly Clinic",
+                 "GHANA_MPE": "Mempeasem", "GHANA_MUL": "Mulpido",
+                 "GHANA_NAK": "Nakpaboni", "GHANA_NAV": "Navrongo",
+                 "GHANA_PRESEC": "Presec-OSU", "GHANA_SAL": "Saltpond",
+                 "GHANA_SAW": "Sawla", "GHANA_SBEK": "Sefwi-Bekwai",
+                 "GHANA_SNY": "Sunyani", "GHANA_SUM": "Sumbrungu",
+                 "GHANA_TDI": "Takoradi", "GHANA_TEM": "Temale",
+                 "GHANA_TLE": "GHANA_TLE", "GHANA_TOL": "Tolon",
+                 "GHANA_VAR": "Varenpare", "GHANA_WA": "WA",
+                 "GHANA_WEIJA": "Weija-Dam ", "GHANA_WEN": "Wenchi",
+                 "GHANA_WESLEY": "Wesley Academy", "GHANA_YEN": "Yendi",}
     return citynames[code]
 
 
@@ -111,7 +132,9 @@ def file_striper(filename):
     elif "meteogram" in filevars:
         # Grab city code
         region = str(filevars[-1].split(".")[0])
-        # Generate title
+        if str(filevars[-2]) == "GHANA":
+            region = str(filevars[-2])+'_'+region
+        # Generate title    
         title = "Meteogram for\n" + str(city_decoder(region))
         plot_type = "meteogram"
     return title, plot_type, city_decoder(region)
@@ -132,7 +155,10 @@ if WG == 'ENS':
     # For Ensembles
     # Loop through pngs
     for g in glob.glob("*"):
-        title, plot_type, region = file_striper(g)
+        try: 
+            title, plot_type, region = file_striper(g)
+        except:
+            continue
         # Add blank slide
         slide = prs.slides.add_slide(prs.slide_layouts[6])
         # Read image
