@@ -22,13 +22,13 @@ START="$(date +%s)" # Grab start time to report how much time has past
 # the url of the public folder (plot)
 url=/gws/nopw/j04/swift/public/requests/SWIFT_TB3/WEEK2_13_19_Sep
 # Find starting number of folders in root directory
-old_nofolders=$(ls -d ${url}*/ | wc -l)
+old_nofolders=$(ls -d ${url}/* | wc -l)
 old_nofolders=0
 # for iterations of 5 mins
 # 48 hours = 576
 # 1 week = 2016
 # 2 weeks = 4032
-for i in $(seq  1 1000)
+for i in $(seq  1 2016)
  do
     # sleep for 5 mins
     sleep $((60*5))
@@ -70,12 +70,12 @@ for i in $(seq  1 1000)
       	no_files=$(ls ${url}/${new_dir}/* | wc -l)
         # If the total number of files found is less than the expected amount
         # keep sleeping
-      	if (( ${no_files} < 46500  )); then
+      	if (( ${no_files} < 46550  )); then
       	   sleep $((60*5))
 	   echo waiting for files
       	fi
         # Check global file number and if global ppts have been generated
-        if (( ${no_filesglobal} > 31750 )); then
+        if (( ${no_filesglobal} > 31770 )); then
 	    if [[ "${globalpptsdone}" = "N" ]]; then
         		echo nearly all global files found wait 5 mins then run
         		sleep $((60*5))
@@ -88,7 +88,7 @@ for i in $(seq  1 1000)
       	fi
         # Check CP number of files and if CP ppt has been generated
     	  no_filescp=$(ls ${url}/${new_dir}/km8p8_ra2t/ | wc -l)
-    	  if (( ${no_filescp} > 14620 )); then
+    	  if (( ${no_filescp} > 14740 )); then
     	    if [[ "${cppptsdone}" = "N" ]]; then
         		echo nearly all CP files found wait 5 mins then run
         		sleep $((60*5))
