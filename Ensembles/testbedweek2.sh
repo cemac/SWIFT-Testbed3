@@ -23,25 +23,26 @@ START="$(date +%s)" # Grab start time to report how much time has past
 url=/gws/nopw/j04/swift/public/requests/SWIFT_TB3/WEEK2_13_19_Sep
 # Find starting number of folders in root directory
 old_nofolders=$(ls -d ${url}/* | wc -l)
-#old_nofolders=0
+old_nofolders=0
 # for iterations of 5 mins
 # 48 hours = 576
 # 1 week = 2016
 # 2 weeks = 4032
 for i in $(seq  1 2016)
  do
-    # sleep for 5 mins
-    sleep $((60*5))
     # Calculate total time in mins script has been running
     END="$(date +%s)"
     DURATION=$[ ${END} - ${START} ]
     # how long in hours
     DURATION=$(($DURATION/(60)))
-    echo -e "${DURATION} mins have past" >> output.txt
+    last_dir=$(ls -td -- ${url}/*/ | head -n 1 | cut -d'/' -f10)
+    echo -e "${DURATION} mins have past, last dir found was ${last_dir}" >> output.txt
     no_folders=$(ls -d ${url}/*/ | wc -l)
     # Is there a new folder?
     if [[ ! ${no_folders} = ${old_nofolders} ]];
 	   then
+       # Set a new number of oldfolers
+       old_nofolders=$(ls -d $url/*/ | wc -l)
        echo new folder found >> output.txt
        echo $(ls -td -- ${url}/*/ | head -n 1 ) >> output.txt
       # list most recent directory
@@ -72,12 +73,12 @@ for i in $(seq  1 2016)
         # keep sleeping
       	if (( ${no_files} < 46600  )); then
       	   sleep $((60*5))
-	   echo waiting for files
+	   echo "waiting for files (${no_files}/46680)"
       	fi
         # Check global file number and if global ppts have been generated
         if (( ${no_filesglobal} > 31800 )); then
 	    if [[ "${globalpptsdone}" = "N" ]]; then
-        		echo nearly all global files found wait 5 mins then run
+        		echo "${no_filesglobal} global files found wait 5 mins then run"
         		sleep $((60*5))
         		echo all files found, start ppt gen
         		./test_global2.sh -d "${date}" -t "${hr}"
@@ -90,7 +91,7 @@ for i in $(seq  1 2016)
     	  no_filescp=$(ls ${url}/${new_dir}/km8p8_ra2t/ | wc -l)
     	  if (( ${no_filescp} > 14780 )); then
     	    if [[ "${cppptsdone}" = "N" ]]; then
-        		echo nearly all CP files found wait 5 mins then run
+        		echo "${no_filescp} CP files found wait 5 mins then run"
         		sleep $((60*5))
         		echo all CP files found, start ppt gen
         		./test_cp2.sh -d "${date}" -t "${hr}"
@@ -100,8 +101,7 @@ for i in $(seq  1 2016)
     	    fi
     	  fi
         done
-    # Set a new number of oldfolers
-    old_nofolders=$(ls -d $url/*/ | wc -l)
     fi
-
+    # sleep for 5 mins
+    sleep $((60*5))
   done
