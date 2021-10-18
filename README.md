@@ -5,9 +5,14 @@
   <br>
 </div>
 
-# Repository #
+
 
  [![GitHub release](https://img.shields.io/github/release/cemac/SWIFT-Testbed3.svg)](https://github.com/cemac/SWIFT-Testbed3/releases) [![GitHub top language](https://img.shields.io/github/languages/top/cemac/SWIFT-Testbed3.svg)](https://github.com/cemac/SWIFT-Testbed3) [![GitHub issues](https://img.shields.io/github/issues/cemac/SWIFT-Testbed3.svg)](https://github.com/cemac/SWIFT-Testbed3/issues) [![GitHub last commit](https://img.shields.io/github/last-commit/cemac/SWIFT-Testbed3.svg)](https://github.com/cemac/SWIFT-Testbed3/commits/master) [![GitHub All Releases](https://img.shields.io/github/downloads/cemac/SWIFT-Testbed3/total.svg)](https://github.com/cemac/SWIFT-Testbed3/releases)![GitHub](https://img.shields.io/github/license/cemac/SWIFT-Testbed3.svg)![Twitter Follow](https://img.shields.io/twitter/follow/african_swift?style=social)
+ 
+# SWIFT TestBed 3 Repository #
+
+[![DOI](https://zenodo.org/badge/319276354.svg)](https://zenodo.org/badge/latestdoi/319276354)
+
 
 # Description #
 
