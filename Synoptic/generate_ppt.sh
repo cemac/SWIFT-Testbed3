@@ -56,7 +56,7 @@ do
 	    then
 		search_dirs="$SWIFT_GFS/plots/$now/PA $SWIFT_GFS/plots/$now/$tag/low $SWIFT_GFS/plots/$now/$tag/jets $SWIFT_GFS/plots/$now/$tag/conv"
 	    else
-		search_dirs="$SWIFT_GFS/plots/$now/PA $SWIFT_GFS/plots/$now/$tag/synth"
+		search_dirs="$SWIFT_GFS/plots/$now/PA/low $SWIFT_GFS/plots/$now/$tag/synth"
 	    fi
 	    find ${search_dirs} -iname '*.png' -exec cp --target-directory ${images_dir} {} \;
 	    cd $images_dir
