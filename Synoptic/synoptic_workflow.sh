@@ -14,10 +14,10 @@ work_dir=/home/users/tdjames1/SWIFT-Testbed3/Synoptic
 #work_dir=/gws/nopw/j04/swift/SWIFT-Testbed3/Synoptic
 
 # convert grib to netcdf and combine forecast data
-$work_dir/preprocess_GFS.sh
+$work_dir/preprocess_GFS.sh > $TMPDIR/preprocess_GFS.out 2>&1
 
 # generate charts
-$work_dir/generate_charts.sh
+$work_dir/generate_charts.sh > $TMPDIR/generate_charts.out 2>&1
 
 # produce PPTs
-$work_dir/generate_ppt.sh
+$work_dir/generate_ppt.sh > $TMPDIR/generate_ppt.out 2>&1
