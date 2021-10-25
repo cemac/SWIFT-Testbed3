@@ -47,9 +47,9 @@ for date in $dates; do
     for dom in $domain; do
 	# select chart types
 	if [ $dom = 'PA' ]; then
-	    chart_types="low"
+	    chart_types="low jets"
 	elif [ $dom = 'EA' ]; then
-	    chart_types="low conv synth"
+	    chart_types="low jets conv synth"
 	else
 	    chart_types="low jets conv synth"
 	fi
