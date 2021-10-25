@@ -1,0 +1,7 @@
+Running Automated WorkFlow For Ensembles Swift TestBed3
+
+0 mins have past, last dir found was 
+new folder found
+/gws/nopw/j04/swift/public/requests/SWIFT_TB3/WEEK5_24_31_Oct//20211024T1200Z/
+hr is 
+new dir is 
