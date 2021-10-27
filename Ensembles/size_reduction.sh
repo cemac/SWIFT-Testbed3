@@ -1,6 +1,7 @@
 #!/bin/bash -
 #title          :size_reduction.sh
-#description    :
+#description    :uses pngquant to reduce file size of all png files in the
+#                current folder
 #author         :CEMAC - Helen
 #date           :20213006
 #version        :1.0

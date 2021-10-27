@@ -1,6 +1,6 @@
 #!/bin/bash -
 #title          :plot_grabber.sh
-#description    :
+#description    :This Script copies a bunch
 #author         :CEMAC - Helen
 #date           :20210309
 #version        :1.0
@@ -11,7 +11,7 @@
 
 # url hidden from public repo
 source .env
-# Default Variables
+# ------------------------ Default Variables --------------------------------- #
 startdate="20210528"
 startday="*"
 hr="00"
@@ -24,17 +24,9 @@ threshold="128mm"
 jas='Y'
 timeframe="24"
 # Available vars in string arrays
-varlists=("RainSnow1hr" "Precip1hr_r" "RainSnow3hr" "Precip3hr_r" "RainSnowRates" "PrecipRate_r" "T_surf" "WindSpdDir_10m")
-stampvarlis=("precip_amount temp_1.5m wind_10m")
-modellist=("mo-g"  "km8p8_ra2t")
-regionlist=("TAfr" "CAfr2" "WAfrs" "wafr" "GuinC" "EAfr1B" "EAfr1Bs" "Sengl" "EAfr1Bs")
-citylist=("ABU" "ACC"  "DAK" "KAN" "KUM" "LAG" "LAK" "MOM" "NAI" "TAM" "TBA" "TOU")
-cutout=("afr" "cafr" "eafr" "gha" "kya" "nga" "sen" "wafr")
-probvar=("temp_1.5m" "24hr_precip_amount" "wind_10m")
-pthresholds=("16mm"  "32mm"  "64mm"  "128mm"  "256mm"  "512mm")
-tthresholds=("30C" "40C" "50C")
-wthresholds=("30knots" "40knots" "50knots")
+probvarlist=("temp_1.5m" "24hr_precip_amount" "wind_10m")
 
+# ---------------------------------------------------------------------------- #
 print_usage() {
   echo "
  plog_grabber.sh
@@ -42,6 +34,7 @@ print_usage() {
  Usage:
   .\plot_grabber.sh --p
  Options:
+  -u url string path to folder
   -d date YYYYMMDD
   -m model mo-g or km8p8_ra2t
   -p plot_type
@@ -49,6 +42,7 @@ print_usage() {
   varlists=(RainSnow1hr Precip1hr_r RainSnow3hr Precip3hr_r RainSnowRates
             PrecipRate_r T_surf WindSpdDir_10m)
   stampvarlis=(precip_amount temp_1.5m wind_10m)
+  probvarlist=(temp_1.5m 24hr_precip_amount wind_10m)
   -x threshold
     pthresholds=(16mm  32mm  64mm  128mm  256mm  512mm)
     tthresholds=(30C 40C 50C)
@@ -68,13 +62,13 @@ print_usage() {
  note wild cards will be accepted
  check url is
  **
- version: 0.4 (beta un-released)
+ version: 1.0
  ------------------------------------------------
   "
 }
 
 # Command line arguements to pass in
-while getopts 'j:d:m:p:v:r:t:l:f:x:y:z:h' flag; do
+while getopts 'j:d:m:p:v:r:t:l:f:x:y:z:u:h' flag; do
   case "${flag}" in
     j) jas="${OPTARG}" ;;
     d) startdate="${OPTARG}" ;;
@@ -88,6 +82,7 @@ while getopts 'j:d:m:p:v:r:t:l:f:x:y:z:h' flag; do
     x) threshold="${OPTARG}" ;;
     y) startday="${OPTARG}" ;;
     z) starthour="${OPTARG}" ;;
+    u) url="${OPTARG}" ;;
     h) print_usage
       exit 1 ;;
     *) print_usage
@@ -98,7 +93,7 @@ done
 # if to be run on jasmin
 if [ jas=='Y' ]; then
     # PATH to plots root dir
-    url="/gws/nopw/j04/swift/public/requests/SWIFT_TB3/WEEK1_06_12_Sep/"
+    url=$url
 elif [[ jas=='N' ]]; then
     # Environment sourced url
     url=${URL}
@@ -107,6 +102,7 @@ fi
 echo jamsin = $jas
 echo plottype $plot_type
 
+# ---------------------------------------------------------------------------- #
 # Build file name from input vars
 
 # nearest neighbour hood max plots
@@ -144,7 +140,7 @@ elif [[ "${plot_type}" = "meteogram" ]]; then
   echo $model
   url="${url}${startdate}T${hr}00Z/${model}/mixed_fields_meteogram_${cutout}.png"
 fi
-
+# ---------------------------------------------------------------------------- #
 # Make images folder if doesn't exist
 if [ ! -e  images ]; then
   mkdir images

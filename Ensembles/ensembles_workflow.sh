@@ -20,7 +20,7 @@ echo -e "Running Automated WorkFlow For Ensembles Swift TestBed3\n" > output.txt
 START="$(date +%s)" # Grab start time to report how much time has past
 # url can be set to the path on jasmin where the metoffice plots will appear or
 # the url of the public folder (plot)
-url=/gws/nopw/j04/swift/public/requests/SWIFT_TB3/WEEK3_20_28_Sep
+url=/gws/nopw/j04/swift/public/requests/SWIFT_TB3/WEEK5_24_31_Oct
 # Find starting number of folders in root directory
 old_nofolders=$(ls -d ${url}/* | wc -l)
 old_nofolders=0
@@ -28,6 +28,36 @@ old_nofolders=0
 # 48 hours = 576
 # 1 week = 2016
 # 2 weeks = 4032
+
+print_usage() {
+  echo "
+ ensembles_workflow.sh -u <string
+ A CEMAC script to grab png files
+ Usage:
+  .\plot_grabber.sh --p
+ Options:
+  -u url string path to folder DO NOT INCLUDE A TRAILING '/'
+  -h HELP: prints this message!
+ **
+ note wild cards will be accepted
+ check url is
+ **
+ version: 1.0
+ ------------------------------------------------
+  "
+}
+
+# Command line arguements to pass in
+while getopts 'u:h' flag; do
+  case "${flag}" in
+    u) url="${OPTARG}" ;;
+    h) print_usage
+      exit 1 ;;
+    *) print_usage
+      exit 1 ;;
+  esac
+done
+
 for i in $(seq  1 2016)
  do
     # Calculate total time in mins script has been running
@@ -81,7 +111,7 @@ for i in $(seq  1 2016)
         		echo "${no_filesglobal} global files found wait 5 mins then run"
         		sleep $((60*5))
         		echo all files found, start ppt gen
-        		./test_global3.sh -d "${date}" -t "${hr}"
+        		./gen_global_ppts.sh -d "${date}" -t "${hr}" -u "${url}"
 			echo "global ppts generated"  >>output.txt
 			# set globalpptsdone to y to prevent this code from exectuing again
         		globalpptsdone='Y'
@@ -94,7 +124,7 @@ for i in $(seq  1 2016)
         		echo "${no_filescp} CP files found wait 5 mins then run"
         		sleep $((60*5))
         		echo all CP files found, start ppt gen
-        		./test_cp3.sh -d "${date}" -t "${hr}"
+        		./gen_cp_ppts.sh -d "${date}" -t "${hr}" -u "${url}"
 			echo "cp ppt generated"  >>output.txt
 			# prevent this section of code from generating again
         		cppptsdone='Y'
