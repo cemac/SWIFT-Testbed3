@@ -58,7 +58,7 @@ def city_decoder(code):
                  "KTU": 'Kitui', "POR": "Port_Harcourt", "ENU": "Enugu",
                  "sen": "Senegal", "gha": "Ghana", "nga": "Nigeria", "kya": "Kenya",
                  "afr": "Africa",  "cafr": "Central_Africa", "eafr": "East_Africa",
-                 "wafr": "West_Africa","GHANA_ABE": "Abetifi ", "GHANA_ACCACA": "Accaca academy",
+                 "wafr": "West_Africa", "GHANA_ABE": "Abetifi ", "GHANA_ACCACA": "Accaca academy",
                  "GHANA_ACC": "Accaca Girls", "GHANA_ADA": "Ada ",
                  "GHANA_AGISS": "GHANA_AGISS", "GHANA_AKAN": "Akanseringa",
                  "GHANA_AKA": "Akatsi", "GHANA_AKU": " ",
@@ -79,7 +79,7 @@ def city_decoder(code):
                  "GHANA_TLE": "GHANA_TLE", "GHANA_TOL": "Tolon",
                  "GHANA_VAR": "Varenpare", "GHANA_WA": "WA",
                  "GHANA_WEIJA": "Weija-Dam ", "GHANA_WEN": "Wenchi",
-                 "GHANA_WESLEY": "Wesley Academy", "GHANA_YEN": "Yendi",}
+                 "GHANA_WESLEY": "Wesley Academy", "GHANA_YEN": "Yendi", }
     return citynames[code]
 
 
@@ -133,7 +133,7 @@ def file_striper(filename):
         # Grab city code
         region = str(filevars[-1].split(".")[0])
         if str(filevars[-2]) == "GHANA":
-            region = str(filevars[-2])+'_'+region
+            region = str(filevars[-2]) + '_' + region
         # Generate title
         title = "Meteogram for\n" + str(city_decoder(region))
         plot_type = "meteogram"
@@ -226,10 +226,10 @@ else:
         else:
             pic_height = int(prs.slide_height * 0.98)
             pic_width = int(pic_height * img.shape[1] / img.shape[0])
-        pic_left  = int((prs.slide_width - pic_width) * 0.5)
-        pic_top  = int((prs.slide_height - pic_height) * 0.5)
-        #pic   = slide.shapes.add_picture(g, pic_left, pic_top)
-        pic   = slide.shapes.add_picture(g, pic_left, pic_top, pic_width, pic_height)
+        pic_left = int((prs.slide_width - pic_width) * 0.5)
+        pic_top = int((prs.slide_height - pic_height) * 0.5)
+        pic = slide.shapes.add_picture(
+            g, pic_left, pic_top, pic_width, pic_height)
         if WG == 'SYNOP':
             # Add legend based on filename
             # e.g. 20210831_0600_069_WA_convective.png
@@ -249,9 +249,10 @@ else:
                 if h > prs.slide_height:
                     h = int(prs.slide_height * 0.98)
                     w = int(h * img.shape[1] / img.shape[0])
-                left  = 0
-                top  = int((prs.slide_height - h) * 0.5)
-                legend = slide.shapes.add_picture(path, left, top, width=w, height=h)
+                left = 0
+                top = int((prs.slide_height - h) * 0.5)
+                legend = slide.shapes.add_picture(
+                    path, left, top, width=w, height=h)
             except:
                 print("Couldn't find legend file: ", path)
     if WG == "SYNOP":
